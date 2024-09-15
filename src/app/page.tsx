@@ -1,5 +1,5 @@
 import { format } from 'date-fns/format';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 
 import { getSortedCraftsMetadata } from '@/lib/content';
 import { cn } from '@/lib/utils';
@@ -21,8 +21,15 @@ export default async function Home() {
             {craftsMetadata
               .filter((craft) => new Date(craft.date).getFullYear() === year)
               .map((craft, index) => (
-                <li key={craft.name} className={cn('group/item py-3')}>
-                  <Link href={craft.slug} className="relative flex">
+                <li key={craft.name}>
+                  <Link
+                    href={craft.slug}
+                    className={cn(
+                      'group/item relative flex py-3',
+                      index !== 0 &&
+                        "after:absolute after:left-[70px] after:right-0 after:top-0 after:h-px after:bg-border after:content-[''] md:after:left-[160px]",
+                    )}
+                  >
                     <span
                       className={cn(
                         'absolute text-neutral-400 dark:text-neutral-500',
