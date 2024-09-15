@@ -17,13 +17,18 @@ export default async function Home() {
 
       <section className="group">
         {years.map((year) => (
-          <ul key={year} className="border-t">
+          <ul key={year} className="group/section border-t">
             {craftsMetadata
               .filter((craft) => new Date(craft.date).getFullYear() === year)
               .map((craft, index) => (
                 <li key={craft.name} className={cn('group/item py-3')}>
                   <Link href={craft.slug} className="relative flex">
-                    <span className="absolute text-neutral-400 dark:text-neutral-500">
+                    <span
+                      className={cn(
+                        'absolute text-neutral-400 dark:text-neutral-500',
+                        'transition-colors group-hover/section:text-neutral-900 dark:group-hover/section:text-neutral-100',
+                      )}
+                    >
                       {index === 0 ? year : null}
                     </span>
                     <div
