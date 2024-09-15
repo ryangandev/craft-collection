@@ -1,7 +1,10 @@
-export type Craft = {
+export type CraftMetadata = {
+  slug: string;
   name: string;
-  description: string;
+  description?: string;
   date: string;
-  url: string;
-  image?: string;
+};
+
+export type CraftData = CraftMetadata & {
+  content: string;
 };
