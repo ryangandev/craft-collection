@@ -34,7 +34,7 @@ export default async function Home() {
                     <div
                       className={cn(
                         'ml-[70px] flex w-full items-center justify-between transition-opacity md:ml-[160px]',
-                        'group-hover/item:opacity-100 group-hover:opacity-50',
+                        'group-hover/item:!opacity-100 group-hover:opacity-50',
                       )}
                     >
                       <p>{craft.name}</p>
