@@ -69,5 +69,17 @@
 }
 
 h1 {
-  @apply font-medium;
+  @apply whitespace-nowrap font-medium;
+}
+
+.description {
+  @apply text-neutral-500 dark:text-neutral-400;
+}
+
+.low-contrast-text {
+  @apply text-neutral-400 dark:text-neutral-500;
+}
+
+.heading {
+  @apply mb-7;
 }

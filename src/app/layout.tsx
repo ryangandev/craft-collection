@@ -7,7 +7,7 @@ import { Toaster } from '@/components/ui/sonner';
 import SiteFooter from '@/components/site-footer';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/providers/theme-provider';
-import '@/app/globals.css';
+import '@/styles/globals.css';
 
 export const metadata: Metadata = {
   title: 'Craft Collection',

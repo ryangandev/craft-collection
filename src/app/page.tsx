@@ -1,6 +1,7 @@
 import { format } from 'date-fns/format';
 import { Link } from 'next-view-transitions';
 
+import AnimatedExternalLink from '@/components/animated-external-link';
 import { getSortedCraftsMetadata } from '@/lib/content';
 import { cn } from '@/lib/utils';
 
@@ -8,12 +9,14 @@ export default async function Home() {
   const { craftsMetadata, years } = await getSortedCraftsMetadata();
 
   return (
-    <main className="">
-      <h1 className="mb-7 whitespace-nowrap">Craft Collection</h1>
-      <p className="mb-16 text-neutral-500 dark:text-neutral-400">
-        My stash of cool components I&apos;ve saved from various projects over
-        time.
-      </p>
+    <main className="space-y-12 md:space-y-16">
+      <div>
+        <h1 className="heading">Craft Collection</h1>
+        <p className="description">
+          My stash of cool components I&apos;ve saved from various projects over
+          time.
+        </p>
+      </div>
 
       <section className="group">
         {years.map((year) => (
@@ -32,7 +35,7 @@ export default async function Home() {
                   >
                     <span
                       className={cn(
-                        'absolute text-neutral-400 dark:text-neutral-500',
+                        'low-contrast-text absolute',
                         'transition-colors group-hover/section:text-neutral-900 dark:group-hover/section:text-neutral-100',
                       )}
                     >
@@ -45,7 +48,7 @@ export default async function Home() {
                       )}
                     >
                       <p>{craft.name}</p>
-                      <span className="mx-2 text-sm text-neutral-400 dark:text-neutral-500">
+                      <span className="low-contrast-text mx-2 text-sm">
                         {format(craft.date, 'MM/dd')}
                       </span>
                     </div>
@@ -55,6 +58,13 @@ export default async function Home() {
           </ul>
         ))}
       </section>
+
+      <p className="low-contrast-text text-sm">
+        Design inspired by{' '}
+        <AnimatedExternalLink href="https://paco.me/">
+          Paco Coursey
+        </AnimatedExternalLink>
+      </p>
     </main>
   );
 }
