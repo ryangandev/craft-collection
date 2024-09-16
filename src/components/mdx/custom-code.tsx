@@ -1,10 +1,9 @@
 'use client';
 
 import React, { Children, useState } from 'react';
-import { GeistMono } from 'geist/font/mono';
-import { GeistSans } from 'geist/font/sans';
 import { GoChevronDown, GoChevronUp } from 'react-icons/go';
 
+import { geistMono } from '@/assets/fonts';
 import { cn } from '@/lib/utils';
 
 type CustomCodeProps = {
@@ -25,11 +24,11 @@ export default function CustomCode({
     <>
       <code
         className={cn(
-          GeistMono.className,
+          geistMono.className,
           'relative text-[13px]',
           {
-            'max-h-[1115px] overflow-hidden': !expanded,
-            'max-h-full overflow-auto': expanded,
+            'max-h-[1115px] overflow-y-hidden': !expanded,
+            'max-h-full overflow-y-auto': expanded,
           },
           className,
         )}
@@ -45,7 +44,6 @@ export default function CustomCode({
             onClick={() => setExpanded((prev) => !prev)}
             className={cn(
               'mt-2 flex items-center rounded-md px-2.5 py-1 text-gray-200 transition-colors hover:bg-slate-700',
-              GeistSans.className,
             )}
           >
             {expanded ? (

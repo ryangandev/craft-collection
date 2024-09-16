@@ -6,7 +6,10 @@ import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 
+import AnimatedExternalLink from '@/components/animated-external-link';
+import Credit from '@/components/credit';
 import DemoContainer from '@/components/demo-container';
+import LoadingContainer from '@/components/loading-container';
 import CustomImage from '@/components/mdx/custom-image';
 import CustomLink from '@/components/mdx/custom-link';
 import '@/styles/mdx.css';
@@ -17,6 +20,7 @@ const CustomCode = dynamic(() => import('@/components/mdx/custom-code'), {
 });
 const CustomPre = dynamic(() => import('@/components/mdx/custom-pre'), {
   ssr: false,
+  loading: () => <LoadingContainer />,
 });
 
 type MdxProps = {
@@ -24,10 +28,17 @@ type MdxProps = {
 };
 
 const components = {
+  h2: ({ children, ...props }) => (
+    <h2 className="heading-2 font-medium" {...props}>
+      {children}
+    </h2>
+  ),
   a: CustomLink,
   code: CustomCode,
   img: CustomImage,
   pre: CustomPre,
+  AnimatedExternalLink,
+  Credit,
   DemoContainer,
 } as MDXRemoteProps['components'];
 

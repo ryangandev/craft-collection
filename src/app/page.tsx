@@ -4,6 +4,7 @@ import { Link } from 'next-view-transitions';
 import AnimatedExternalLink from '@/components/animated-external-link';
 import { getSortedCraftsMetadata } from '@/lib/content';
 import { cn } from '@/lib/utils';
+import Credit from '@/components/credit';
 
 export default async function Home() {
   const { craftsMetadata, years } = await getSortedCraftsMetadata();
@@ -59,12 +60,12 @@ export default async function Home() {
         ))}
       </section>
 
-      <p className="low-contrast-text text-sm">
+      <Credit>
         Design inspired by{' '}
         <AnimatedExternalLink href="https://paco.me/">
           Paco Coursey
         </AnimatedExternalLink>
-      </p>
+      </Credit>
     </main>
   );
 }

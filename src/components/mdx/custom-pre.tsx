@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
-import { GeistSans } from 'geist/font/sans';
 import { GoCheck, GoCopy } from 'react-icons/go';
 import { toast } from 'sonner';
 
@@ -30,7 +29,7 @@ const CustomPre: React.FC<CustomPreProps> = ({
         await navigator.clipboard.writeText(fullCode || '');
         setIsCopied(true);
         toast.success('Copied to clipboard!');
-        setTimeout(() => setIsCopied(false), 2000);
+        setTimeout(() => setIsCopied(false), 1500);
       } catch (err) {
         console.error('Failed to copy: ', err);
         toast.error('Failed to copy. Please try again.');
@@ -40,18 +39,17 @@ const CustomPre: React.FC<CustomPreProps> = ({
 
   return (
     <div className="relative">
-      <div className="absolute top-0 flex w-full items-center justify-between space-x-2 rounded-t-md py-2 pl-6 pr-4">
+      <div className="absolute top-0 flex w-full items-center justify-between space-x-2 rounded-t-md border-b px-4 py-2">
         <span
           className={cn(
-            'flex items-center text-[13px] font-semibold uppercase text-gray-200',
-            GeistSans.className,
+            'flex items-center text-[13px] font-semibold uppercase',
           )}
         >
           {language}
         </span>
         <button
           onClick={handleCopyToClipboard}
-          className="rounded-md p-1.5 text-gray-200 transition-colors hover:bg-gray-700"
+          className="rounded-md p-1.5 transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
         >
           {isCopied ? (
             <GoCheck size={20} className="text-green-400" />
@@ -62,7 +60,7 @@ const CustomPre: React.FC<CustomPreProps> = ({
       </div>
       <pre
         ref={preRef}
-        className={cn('mt-2 pt-12', className)}
+        className={cn('rounded-md border px-5 pb-5 pt-[68px]', className)}
         data-language={language}
         {...props}
       >
