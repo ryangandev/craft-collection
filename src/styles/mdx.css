@@ -43,3 +43,10 @@ code[data-line-numbers-max-digits='4'] > [data-line]::before {
 [data-rehype-pretty-code-figure] [data-rehype-pretty-code-title] {
   @apply text-base font-medium text-black dark:text-white;
 }
+
+/* Apply Dual Themes to Code Blocks */
+/* Source: https://rehype-pretty.pages.dev/#multiple-themes-dark-and-light-modes */
+pre[data-theme*=' '],
+pre[data-theme*=' '] span {
+  @apply bg-[--shiki-light-bg] text-[--shiki-light] dark:bg-[--shiki-dark-bg] dark:text-[--shiki-dark];
+}

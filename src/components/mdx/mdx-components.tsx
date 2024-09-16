@@ -39,7 +39,11 @@ const options = {
       [
         rehypePrettyCode,
         {
-          theme: 'material-theme-palenight',
+          theme: {
+            light: 'min-light',
+            dark: 'vesper',
+          },
+          keepBackground: false,
         },
       ],
       [
