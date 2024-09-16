@@ -52,7 +52,7 @@ const CustomPre: React.FC<CustomPreProps> = ({
           className="rounded-md p-1.5 transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
         >
           {isCopied ? (
-            <GoCheck size={20} className="text-green-400" />
+            <GoCheck size={20} className="text-green-700 dark:text-green-300" />
           ) : (
             <GoCopy size={20} />
           )}

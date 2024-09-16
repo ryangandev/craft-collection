@@ -72,8 +72,12 @@ h1 {
   @apply whitespace-nowrap font-medium;
 }
 
+.heading-2 {
+  @apply mb-7 mt-14 text-neutral-700 dark:text-neutral-300;
+}
+
 .description {
-  @apply text-neutral-500 dark:text-neutral-400;
+  @apply text-neutral-600 dark:text-neutral-400;
 }
 
 .low-contrast-text {

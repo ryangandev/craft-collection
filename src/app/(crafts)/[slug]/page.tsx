@@ -6,6 +6,7 @@ import BreadcrumbHeading from '@/components/breadcrumb-heading';
 import Mdx from '@/components/mdx/mdx-components';
 import { getAllCraftsSlugs, getCraftBySlug } from '@/lib/content';
 import { CraftData } from '@/types/craft';
+import LoadingContainer from '@/components/loading-container';
 
 const getCraftsData = async (slug: string): Promise<CraftData | null> => {
   const allSlugs = await getAllCraftsSlugs();
@@ -55,9 +56,12 @@ export default async function Page({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <main>
-      <BreadcrumbHeading name={craft.name} />
-      <section className="prose dark:prose-invert">
+    <main className="space-y-12 md:space-y-16">
+      <div>
+        <BreadcrumbHeading name={craft.name} />
+        <p className="description">{craft.description}</p>
+      </div>
+      <section className="doc leading-6">
         <Mdx source={craft.content} />
       </section>
     </main>

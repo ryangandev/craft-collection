@@ -50,3 +50,34 @@ pre[data-theme*=' '],
 pre[data-theme*=' '] span {
   @apply bg-[--shiki-light-bg] text-[--shiki-light] dark:bg-[--shiki-dark-bg] dark:text-[--shiki-dark];
 }
+
+/* Subheading Anchor Link Style */
+.subheading-anchor {
+  @apply invisible absolute no-underline;
+  margin-left: -1em;
+  padding-right: 0.5em;
+  width: 100%;
+  max-width: 700px;
+  cursor: pointer;
+}
+
+.subheading-anchor:hover {
+  @apply visible;
+}
+
+.subheading-anchor:after {
+  @apply text-slate-400 dark:text-slate-200;
+  content: '#';
+}
+
+*:hover > .subheading-anchor {
+  @apply visible;
+}
+
+.doc h2,
+.doc h3,
+.doc h4,
+.doc h5,
+.doc h6 {
+  @apply scroll-mt-12;
+}

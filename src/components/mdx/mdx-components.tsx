@@ -7,7 +7,7 @@ import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 
 import AnimatedExternalLink from '@/components/animated-external-link';
-import Credit from '@/components/credit';
+import Credits from '@/components/credits';
 import DemoContainer from '@/components/demo-container';
 import LoadingContainer from '@/components/loading-container';
 import CustomImage from '@/components/mdx/custom-image';
@@ -38,7 +38,7 @@ const components = {
   img: CustomImage,
   pre: CustomPre,
   AnimatedExternalLink,
-  Credit,
+  Credits,
   DemoContainer,
 } as MDXRemoteProps['components'];
 
