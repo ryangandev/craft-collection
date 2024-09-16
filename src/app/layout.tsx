@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { ViewTransitions } from 'next-view-transitions';
+import { Analytics } from '@vercel/analytics/react';
 
 import { geistSans } from '@/assets/fonts';
 import { Toaster } from '@/components/ui/sonner';
@@ -41,6 +42,7 @@ export default function RootLayout({
             </div>
             <SiteFooter />
             <Toaster richColors />
+            <Analytics />
           </ThemeProvider>
         </body>
       </html>
