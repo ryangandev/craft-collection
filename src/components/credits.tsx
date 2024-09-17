@@ -5,5 +5,5 @@ type CreditsProps = {
 };
 
 export default function Credits({ children }: CreditsProps) {
-  return <p className="low-contrast-text mt-12">{children}</p>;
+  return <p className="color-level-5 mt-14">{children}</p>;
 }

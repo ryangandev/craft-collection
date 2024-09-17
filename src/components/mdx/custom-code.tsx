@@ -25,7 +25,7 @@ export default function CustomCode({
       <code
         className={cn(
           geistMono.className,
-          'relative text-[13px]',
+          'relative text-[13px] leading-6',
           {
             'max-h-[1220px] overflow-y-hidden': !expanded,
             'max-h-full overflow-y-auto': expanded,

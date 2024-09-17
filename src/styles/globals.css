@@ -74,21 +74,37 @@
 }
 
 h1 {
-  @apply whitespace-nowrap font-medium;
+  @apply color-level-1 whitespace-nowrap font-medium;
 }
 
-.heading-2 {
-  @apply mb-7 mt-14 text-neutral-700 dark:text-neutral-300;
+h2 {
+  @apply color-level-2 whitespace-nowrap font-medium;
 }
 
-.description {
+.color-level-1 {
+  @apply text-neutral-950 dark:text-neutral-50;
+}
+
+.color-level-2 {
+  @apply text-neutral-800 dark:text-neutral-200;
+}
+
+.color-level-3 {
+  @apply text-neutral-700 dark:text-neutral-300;
+}
+
+.color-level-4 {
   @apply text-neutral-600 dark:text-neutral-400;
 }
 
-.low-contrast-text {
-  @apply text-neutral-400 dark:text-neutral-500;
+.color-level-5 {
+  @apply text-neutral-500 dark:text-neutral-500;
 }
 
-.heading {
-  @apply mb-7;
+.color-level-6 {
+  @apply text-neutral-400 dark:text-neutral-600;
+}
+
+.heading-2-block {
+  @apply mb-7 mt-14;
 }

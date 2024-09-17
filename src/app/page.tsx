@@ -12,8 +12,8 @@ export default async function Home() {
   return (
     <main className="space-y-12 md:space-y-16">
       <div>
-        <h1 className="heading">Craft Collection</h1>
-        <p className="description">
+        <h1 className="mb-7">Craft Collection</h1>
+        <p>
           My stash of cool components I&apos;ve saved from various projects over
           time.
         </p>
@@ -36,8 +36,8 @@ export default async function Home() {
                   >
                     <span
                       className={cn(
-                        'low-contrast-text absolute',
-                        'transition-colors group-hover/section:text-neutral-900 dark:group-hover/section:text-neutral-100',
+                        'color-level-5 absolute',
+                        'transition-colors group-hover/section:text-neutral-950 dark:group-hover/section:text-neutral-50',
                       )}
                     >
                       {index === 0 ? year : null}
@@ -48,8 +48,8 @@ export default async function Home() {
                         'group-hover/item:!opacity-100 group-hover:opacity-50',
                       )}
                     >
-                      <p>{craft.name}</p>
-                      <span className="low-contrast-text mx-2 text-sm">
+                      <p className="color-level-1">{craft.name}</p>
+                      <span className="color-level-5 mx-2 text-sm">
                         {format(craft.date, 'MM/dd')}
                       </span>
                     </div>

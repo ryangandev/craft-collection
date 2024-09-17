@@ -27,7 +27,7 @@ export default function RootLayout({
         <body
           className={cn(
             geistSans.className,
-            'flex min-h-screen flex-col text-neutral-900 antialiased selection:bg-zinc-300 selection:text-zinc-900 dark:text-neutral-100 dark:selection:bg-zinc-700 dark:selection:text-zinc-50',
+            'color-level-3 flex min-h-screen flex-col antialiased selection:bg-zinc-300 selection:text-zinc-950 dark:selection:bg-zinc-700 dark:selection:text-zinc-50',
           )}
         >
           <ThemeProvider

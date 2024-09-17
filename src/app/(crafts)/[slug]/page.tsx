@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 
+import { format } from 'date-fns';
 import { notFound } from 'next/navigation';
 
 import BreadcrumbHeading from '@/components/breadcrumb-heading';
 import Mdx from '@/components/mdx/mdx-components';
 import { getAllCraftsSlugs, getCraftBySlug } from '@/lib/content';
 import { CraftData } from '@/types/craft';
-import LoadingContainer from '@/components/loading-container';
 
 const getCraftsData = async (slug: string): Promise<CraftData | null> => {
   const allSlugs = await getAllCraftsSlugs();
@@ -56,12 +56,14 @@ export default async function Page({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <main className="space-y-12 md:space-y-16">
-      <div>
+    <main>
+      <div className="mb-12">
         <BreadcrumbHeading name={craft.name} />
-        <p className="description">{craft.description}</p>
+        <p className="color-level-4">
+          Last updated: {format(craft.date, 'MMM dd, yyyy')}
+        </p>
       </div>
-      <section className="doc leading-6">
+      <section className="doc">
         <Mdx source={craft.content} />
       </section>
     </main>

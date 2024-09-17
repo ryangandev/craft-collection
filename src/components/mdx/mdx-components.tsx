@@ -29,7 +29,7 @@ type MdxProps = {
 
 const components = {
   h2: ({ children, ...props }) => (
-    <h2 className="heading-2 font-medium" {...props}>
+    <h2 className="heading-2-block" {...props}>
       {children}
     </h2>
   ),
