@@ -23,13 +23,12 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-      <html lang="en" className="scroll-smooth">
+      <html lang="en" className="scroll-smooth" suppressHydrationWarning>
         <body
           className={cn(
             geistSans.className,
-            'flex min-h-screen flex-col text-neutral-900 selection:bg-zinc-300 selection:text-zinc-900 dark:text-neutral-100 dark:selection:bg-zinc-700 dark:selection:text-zinc-50',
+            'flex min-h-screen flex-col text-neutral-900 antialiased selection:bg-zinc-300 selection:text-zinc-900 dark:text-neutral-100 dark:selection:bg-zinc-700 dark:selection:text-zinc-50',
           )}
-          suppressHydrationWarning
         >
           <ThemeProvider
             attribute="class"

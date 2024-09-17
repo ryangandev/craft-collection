@@ -1,7 +1,7 @@
 import React from 'react';
 import Link, { LinkProps } from 'next/link';
 
-import AnimatedExternalLink from '@/components/animated-external-link';
+import AnimatedLink from '@/components/animated-link';
 
 type CustomLinkProps = LinkProps & {
   href: string;
@@ -18,8 +18,8 @@ export default function CustomLink({
   }
 
   return (
-    <AnimatedExternalLink href={href} {...props}>
+    <AnimatedLink href={href} {...props}>
       {children}
-    </AnimatedExternalLink>
+    </AnimatedLink>
   );
 }

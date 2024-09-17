@@ -1,7 +1,7 @@
 import { format } from 'date-fns/format';
 import { Link } from 'next-view-transitions';
 
-import AnimatedExternalLink from '@/components/animated-external-link';
+import AnimatedLink from '@/components/animated-link';
 import { getSortedCraftsMetadata } from '@/lib/content';
 import { cn } from '@/lib/utils';
 import Credits from '@/components/credits';
@@ -62,9 +62,7 @@ export default async function Home() {
 
       <Credits>
         Design inspired by{' '}
-        <AnimatedExternalLink href="https://paco.me/">
-          Paco Coursey
-        </AnimatedExternalLink>
+        <AnimatedLink href="https://paco.me/">Paco Coursey</AnimatedLink>
       </Credits>
     </main>
   );

@@ -10,7 +10,7 @@ export default function DemoContainer({
   return (
     <div
       className={cn(
-        'flex min-h-[350px] w-full items-center justify-center rounded-md border',
+        'flex min-h-[350px] w-full flex-col items-center justify-center gap-8 rounded-md border p-10',
         className,
       )}
       {...props}

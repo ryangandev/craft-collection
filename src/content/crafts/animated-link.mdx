@@ -1,0 +1,55 @@
+---
+name: 'Animated Link'
+description: 'A link component with animation effect on hover.'
+date: '2024-09-12'
+---
+
+## Description
+
+A link component with animation effect on hover. Control whether the link to be external or internal by setting the `isInternal` prop.
+
+## Preview
+
+<DemoContainer>
+  <AnimatedLink href="/">Animated External Link</AnimatedLink>
+  <AnimatedLink href="/" isInternal>
+    Animated Internal Link
+  </AnimatedLink>
+</DemoContainer>
+
+## Code
+
+```tsx showLineNumbers
+import React from 'react';
+import Link, { LinkProps } from 'next/link';
+import { LuArrowUpRight } from 'react-icons/lu';
+
+type AnimatedLinkProps = LinkProps & {
+  children: React.ReactNode;
+  isInternal?: boolean;
+};
+
+export default function AnimatedLink({
+  children,
+  isInternal = false,
+  ...props
+}: AnimatedLinkProps) {
+  return (
+    <Link
+      {...props}
+      target={isInternal ? '_self' : '_blank'}
+      className="group underline decoration-gray-400 underline-offset-4 transition-colors hover:decoration-gray-700 dark:decoration-gray-600 dark:hover:decoration-gray-300"
+    >
+      {children}
+      {!isInternal && (
+        <LuArrowUpRight
+          className="inline-block text-gray-400 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-gray-700 dark:text-gray-600 dark:group-hover:text-gray-300"
+          size={16}
+        />
+      )}
+    </Link>
+  );
+}
+```
+
+<Credits>Inspired by [Jérémy Caruelle](https://jeremycaruelle.com/)</Credits>
