@@ -1,3 +1,4 @@
+/* Rehype Pretty Code code block line number styling */
 code[data-line-numbers] {
   counter-reset: line;
 }
@@ -26,6 +27,7 @@ code[data-line-numbers-max-digits='4'] > [data-line]::before {
   width: 2.25rem;
 }
 
+/* Rehype Pretty Code code block line Styling */
 [data-rehype-pretty-code-figure] [data-line] {
   @apply border-l-2 border-l-transparent;
 }
@@ -40,8 +42,9 @@ code[data-line-numbers-max-digits='4'] > [data-line]::before {
   @apply rounded-md px-1.5 py-1;
 }
 
+/* Rehype Pretty Code code block title styling */
 [data-rehype-pretty-code-figure] [data-rehype-pretty-code-title] {
-  @apply text-base font-medium text-black dark:text-white;
+  @apply mb-4 mt-7 text-neutral-800 dark:text-neutral-200;
 }
 
 /* Apply Dual Themes to Code Blocks */

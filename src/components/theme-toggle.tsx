@@ -5,8 +5,13 @@ import { useTheme } from 'next-themes';
 import { MoonIcon, SunIcon } from '@radix-ui/react-icons';
 
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
-export default function ThemeToggle() {
+type ThemeToggleProps = {
+  className?: string;
+};
+
+export default function ThemeToggle({ className }: ThemeToggleProps) {
   const { theme, setTheme } = useTheme();
 
   const handleToggle = () => {
@@ -17,7 +22,7 @@ export default function ThemeToggle() {
     <Button
       variant="ghost"
       size="icon"
-      className="h-8 w-8 hover:bg-transparent"
+      className={cn('h-8 w-8', className)}
       onClick={handleToggle}
     >
       <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />

@@ -4,7 +4,15 @@ description: 'A link component with animation effect on hover.'
 date: '2024-09-12'
 ---
 
-A link component with animation effect on hover. Control whether the link to be external or internal by setting the `isInternal` prop (default is `false`).
+A link component with animation effect on hover. Set `isInternal` prop to `true` for internal routing (default: external link).
+
+## Prerequisites
+
+Created in Next.js with TypeScript. Styled with TailwindCSS.
+
+<br />
+
+<b className="font-medium color-level-2">Note</b>: `<Link>` can be replaced by `<a>`. If using `<a>`, change the component typing from `LinkProps` to `React.AnchorHTMLAttributes<HTMLAnchorElement>`.
 
 ## Preview
 
@@ -18,7 +26,6 @@ A link component with animation effect on hover. Control whether the link to be 
 ## Code
 
 ```tsx showLineNumbers
-import React from 'react';
 import Link, { LinkProps } from 'next/link';
 import { LuArrowUpRight } from 'react-icons/lu';
 

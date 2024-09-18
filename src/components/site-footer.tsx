@@ -10,7 +10,7 @@ export default function SiteFooter() {
         <span className="mr-2">Minimalist.</span>
         <div className="flex items-center space-x-4">
           <span className="text-nowrap">{getYear(new Date())} Ryan Gan.</span>
-          <ThemeToggle />
+          <ThemeToggle className="hover:bg-transparent" />
         </div>
       </div>
     </footer>
