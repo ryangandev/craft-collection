@@ -1,3 +1,10 @@
+/*
+ * This file is imported on its own, so Tailwind compiles it as a separate
+ * entry point. `@reference` pulls in the theme/utilities that `@apply` below
+ * needs without emitting the base stylesheet a second time.
+ */
+@reference './globals.css';
+
 /* Rehype Pretty Code code block line number styling */
 code[data-line-numbers] {
   counter-reset: line;
@@ -44,14 +51,14 @@ code[data-line-numbers-max-digits='4'] > [data-line]::before {
 
 /* Rehype Pretty Code code block title styling */
 [data-rehype-pretty-code-figure] [data-rehype-pretty-code-title] {
-  @apply mb-4 mt-7 text-neutral-800 dark:text-neutral-200;
+  @apply mt-7 mb-4 text-neutral-800 dark:text-neutral-200;
 }
 
 /* Apply Dual Themes to Code Blocks */
 /* Source: https://rehype-pretty.pages.dev/#multiple-themes-dark-and-light-modes */
 pre[data-theme*=' '],
 pre[data-theme*=' '] span {
-  @apply bg-[--shiki-light-bg] text-[--shiki-light] dark:bg-[--shiki-dark-bg] dark:text-[--shiki-dark];
+  @apply bg-(--shiki-light-bg) text-(--shiki-light) dark:bg-(--shiki-dark-bg) dark:text-(--shiki-dark);
 }
 
 /* Subheading Anchor Link Style */

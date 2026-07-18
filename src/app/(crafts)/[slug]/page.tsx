@@ -32,9 +32,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = params;
+  const { slug } = await params;
   const craft = await getCraftsData(slug);
 
   if (!craft) {
@@ -49,8 +49,13 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const craft = await getCraftsData(params.slug);
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const craft = await getCraftsData(slug);
   if (!craft) {
     notFound();
   }

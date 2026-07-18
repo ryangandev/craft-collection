@@ -1,5 +1,4 @@
 import React from 'react';
-import dynamic from 'next/dynamic';
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
@@ -9,19 +8,11 @@ import remarkGfm from 'remark-gfm';
 import AnimatedLink from '@/components/animated-link';
 import Credits from '@/components/credits';
 import DemoContainer from '@/components/demo-container';
-import LoadingContainer from '@/components/loading-container';
+import CustomCode from '@/components/mdx/custom-code';
 import CustomImage from '@/components/mdx/custom-image';
 import CustomLink from '@/components/mdx/custom-link';
+import CustomPre from '@/components/mdx/custom-pre';
 import '@/styles/mdx.css';
-
-// Needs to be imported dynamically because it's a client component
-const CustomCode = dynamic(() => import('@/components/mdx/custom-code'), {
-  ssr: false,
-});
-const CustomPre = dynamic(() => import('@/components/mdx/custom-pre'), {
-  ssr: false,
-  loading: () => <LoadingContainer />,
-});
 
 type MdxProps = {
   source: MDXRemoteProps['source'];
