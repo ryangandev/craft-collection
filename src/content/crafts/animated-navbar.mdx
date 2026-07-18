@@ -3,3 +3,81 @@ name: 'Animated Navbar'
 description: 'Navbar with an animation on hover.'
 date: '2024-09-15'
 ---
+
+A navbar whose highlight glides between items instead of cutting to the active one. The effect comes from Framer Motion's `layoutId` — every item renders the _same_ `layoutId`, so when the active item changes, Framer Motion treats the two highlights as one element moving and tweens between them.
+
+## Prerequisites
+
+Created in Next.js with TypeScript. Styled with TailwindCSS. Animated with Framer Motion.
+
+<br />
+
+<b className="font-medium color-level-2">Note</b>: `layoutId` must be unique per animation group. If two separate navbars share a value, their highlights will animate into each other.
+
+## Preview
+
+<DemoContainer>
+  <NavBarDemo />
+</DemoContainer>
+
+<br />
+
+The preview tracks the active link in local state so the transition is visible on click. The component below uses `usePathname()` instead, so the highlight follows the current route.
+
+## Code
+
+```tsx showLineNumbers
+'use client';
+
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { GoMoon, GoSun } from 'react-icons/go';
+
+const links = [
+  { name: 'Home', href: '/' },
+  { name: 'Portfolio', href: '/portfolio' },
+  { name: 'Blogs', href: '/blogs' },
+  { name: 'Craft', href: '/craft' },
+];
+
+export default function NavBar() {
+  const pathname = usePathname();
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  return (
+    <nav className="flex items-center justify-between bg-white p-4 transition-colors duration-300 dark:bg-gray-800">
+      <ul className="flex space-x-4">
+        {links.map((link) => (
+          <li key={link.name}>
+            <Link
+              href={link.href}
+              className="relative px-3 py-2 text-gray-700 transition-colors duration-300 dark:text-gray-200"
+            >
+              {link.name}
+              {pathname === link.href && (
+                <motion.div
+                  className="absolute inset-0 z-[-1] rounded-md bg-gray-100 dark:bg-gray-700"
+                  layoutId="background"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                />
+              )}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <button
+        onClick={() => setIsDarkMode(!isDarkMode)}
+        className="rounded-full bg-gray-200 p-2 text-gray-700 transition-colors duration-300 dark:bg-gray-700 dark:text-gray-200"
+      >
+        {isDarkMode ? <GoSun size={20} /> : <GoMoon size={20} />}
+      </button>
+    </nav>
+  );
+}
+```
+
+The highlight sits behind the label via `absolute inset-0` and `z-[-1]`, so it can move freely without shifting the text. Tune the glide with `stiffness` and `damping` — lower stiffness makes it looser, higher damping settles it sooner.

@@ -1,5 +1,98 @@
 ---
 name: 'Copy Button with Toast'
-description: 'A copy button component with a sooner toast on click.'
+description: 'A copy button component with a sonner toast on click.'
 date: '2023-12-15'
 ---
+
+An icon button that writes `value` to the clipboard, swaps to a check for 1.5s, and fires a [sonner](https://sonner.emilkowal.ski/) toast to confirm.
+
+## Prerequisites
+
+Created in Next.js with TypeScript. Styled with TailwindCSS. Uses the shadcn/ui `Button` and `sonner` for toasts.
+
+<br />
+
+<b className="font-medium color-level-2">Note</b>: `navigator.clipboard` is only available in a secure context (HTTPS or localhost), and the write is rejected without a user gesture — so call it directly from the click handler rather than after an `await`.
+
+## Preview
+
+<DemoContainer>
+  <CopyButton value="Hello World!" />
+</DemoContainer>
+
+## Code
+
+`<Toaster />` has to be mounted once, high enough in the tree to outlive the button:
+
+```tsx title="app/layout.tsx"
+import { Toaster } from '@/components/ui/sonner';
+
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="en">
+      <body>
+        {children}
+        <Toaster richColors />
+      </body>
+    </html>
+  );
+}
+```
+
+```tsx title="lib/utils.ts"
+export async function copyToClipboardWithMeta(value: string) {
+  await navigator.clipboard.writeText(value);
+}
+```
+
+```tsx title="copy-button.tsx" showLineNumbers
+'use client';
+
+import React, { useState } from 'react';
+import { GoCheck, GoCopy } from 'react-icons/go';
+import { toast } from 'sonner';
+
+import { Button, ButtonProps } from '@/components/ui/button';
+import { cn, copyToClipboardWithMeta } from '@/lib/utils';
+
+type CopyButtonProps = ButtonProps & {
+  value: string;
+};
+
+export default function CopyButton({
+  value,
+  className,
+  variant = 'ghost',
+  ...props
+}: CopyButtonProps) {
+  const [hasCopied, setHasCopied] = useState(false);
+
+  const copyToClipboard = async () => {
+    if (hasCopied && !value) return;
+
+    await copyToClipboardWithMeta(value);
+    setHasCopied(true);
+    toast.success('Copied to clipboard!');
+    setTimeout(() => setHasCopied(false), 1500);
+  };
+
+  return (
+    <Button
+      size="icon"
+      variant={variant}
+      className={cn(className)}
+      onClick={copyToClipboard}
+      {...props}
+    >
+      {hasCopied ? <GoCheck /> : <GoCopy />}
+      <span className="sr-only">Copy</span>
+    </Button>
+  );
+}
+```
+
+Because `CopyButtonProps` extends `ButtonProps`, every `Button` variant still applies — `<CopyButton value="..." variant="outline" />` works without touching the component.
+
+<Credits>Toasts by [sonner](https://sonner.emilkowal.ski/), button from [shadcn/ui](https://ui.shadcn.com/)</Credits>

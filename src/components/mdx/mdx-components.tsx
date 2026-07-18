@@ -6,8 +6,10 @@ import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 
 import AnimatedLink from '@/components/animated-link';
+import CopyButton from '@/components/copy-button';
 import Credits from '@/components/credits';
 import DemoContainer from '@/components/demo-container';
+import NavBarDemo from '@/components/navbar-demo';
 import CustomCode from '@/components/mdx/custom-code';
 import CustomImage from '@/components/mdx/custom-image';
 import CustomLink from '@/components/mdx/custom-link';
@@ -29,8 +31,10 @@ const components = {
   img: CustomImage,
   pre: CustomPre,
   AnimatedLink,
+  CopyButton,
   Credits,
   DemoContainer,
+  NavBarDemo,
 } as MDXRemoteProps['components'];
 
 const options = {

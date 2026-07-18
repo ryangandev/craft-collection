@@ -1,0 +1,8 @@
+# Prettier rewraps JSX children in MDX across multiple lines, which makes MDX
+# parse them as block content and wrap them in a <p>. For components that
+# already render a <p> (e.g. <Credits>), that produces nested <p> tags and a
+# hydration error. Keep MDX formatting manual.
+*.mdx
+
+pnpm-lock.yaml
+.next
