@@ -1,10 +1,10 @@
 ---
 name: 'Animated Navbar'
-description: 'Navbar with an animation on hover.'
+description: 'Navbar with a hover highlight and a selected pill that glides between items.'
 date: '2024-09-15'
 ---
 
-A navbar whose highlight glides between items instead of cutting to the active one. The effect comes from Framer Motion's `layoutId` — every item renders the _same_ `layoutId`, so when the active item changes, Framer Motion treats the two highlights as one element moving and tweens between them.
+A navbar with two independent highlights: a soft one that follows the cursor, and a stronger one that marks the selected item. Neither cuts — both glide, because every item renders the _same_ `layoutId`. When the item holding that id unmounts and another mounts with it, Framer Motion treats the two as one element moving and tweens between them.
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@ Created in Next.js with TypeScript. Styled with TailwindCSS. Animated with Frame
 
 <br />
 
-<b className="font-medium color-level-2">Note</b>: `layoutId` must be unique per animation group. If two separate navbars share a value, their highlights will animate into each other.
+<b className="font-medium color-level-2">Note</b>: don't sink the highlights with a negative z-index. `relative` alone creates no stacking context, so `z-[-1]` drops them behind the nav's own background and nothing renders. Paint them before the label and lift the label with `relative z-10` instead.
 
 ## Preview
 
@@ -22,7 +22,7 @@ Created in Next.js with TypeScript. Styled with TailwindCSS. Animated with Frame
 
 <br />
 
-The preview tracks the active link in local state so the transition is visible on click. The component below uses `usePathname()` instead, so the highlight follows the current route.
+Hover across the items to move the soft highlight, and click to move the selected one. The preview tracks selection in local state so the transition is visible; the component below uses `usePathname()`, so the selected pill follows the current route.
 
 ## Code
 
@@ -33,7 +33,6 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { GoMoon, GoSun } from 'react-icons/go';
 
 const links = [
   { name: 'Home', href: '/' },
@@ -42,42 +41,65 @@ const links = [
   { name: 'Craft', href: '/craft' },
 ];
 
+const spring = { type: 'spring', stiffness: 380, damping: 30 } as const;
+
 export default function NavBar() {
   const pathname = usePathname();
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [hoveredHref, setHoveredHref] = useState<string | null>(null);
 
   return (
-    <nav className="flex items-center justify-between bg-white p-4 transition-colors duration-300 dark:bg-gray-800">
-      <ul className="flex space-x-4">
-        {links.map((link) => (
-          <li key={link.name}>
-            <Link
-              href={link.href}
-              className="relative px-3 py-2 text-gray-700 transition-colors duration-300 dark:text-gray-200"
-            >
-              {link.name}
-              {pathname === link.href && (
-                <motion.div
-                  className="absolute inset-0 z-[-1] rounded-md bg-gray-100 dark:bg-gray-700"
-                  layoutId="background"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                />
-              )}
-            </Link>
-          </li>
-        ))}
-      </ul>
-      <button
-        onClick={() => setIsDarkMode(!isDarkMode)}
-        className="rounded-full bg-gray-200 p-2 text-gray-700 transition-colors duration-300 dark:bg-gray-700 dark:text-gray-200"
+    <nav className="flex items-center bg-white p-4 dark:bg-gray-800">
+      <ul
+        className="flex items-center"
+        onMouseLeave={() => setHoveredHref(null)}
       >
-        {isDarkMode ? <GoSun size={20} /> : <GoMoon size={20} />}
-      </button>
+        {links.map((link) => {
+          const isActive = pathname === link.href;
+
+          return (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                onMouseEnter={() => setHoveredHref(link.href)}
+                onFocus={() => setHoveredHref(link.href)}
+                aria-current={isActive ? 'page' : undefined}
+                className={`relative block px-3 py-2 transition-colors duration-300 ${
+                  isActive
+                    ? 'text-gray-900 dark:text-gray-50'
+                    : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50'
+                }`}
+              >
+                {hoveredHref === link.href && (
+                  <motion.span
+                    layoutId="nav-hover"
+                    className="absolute inset-0 rounded-md bg-gray-100 dark:bg-gray-700/50"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={spring}
+                  />
+                )}
+                {isActive && (
+                  <motion.span
+                    layoutId="nav-active"
+                    className="absolute inset-0 rounded-md bg-gray-200 dark:bg-gray-700"
+                    transition={spring}
+                  />
+                )}
+                <span className="relative z-10">{link.name}</span>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     </nav>
   );
 }
 ```
 
-The highlight sits behind the label via `absolute inset-0` and `z-[-1]`, so it can move freely without shifting the text. Tune the glide with `stiffness` and `damping` — lower stiffness makes it looser, higher damping settles it sooner.
+The two highlights are separate layers with separate ids, so they move independently — hovering never disturbs the selected pill. Order matters: the hover span is rendered first and the active span second, so the selected item still reads as selected while you hover it.
+
+`onMouseLeave` sits on the `<ul>` rather than each item, so sweeping across the nav hands the highlight from one item to the next without clearing it in between. `onFocus` mirrors `onMouseEnter` so the highlight tracks keyboard tabbing too.
+
+Tune the glide with `stiffness` and `damping` — lower stiffness makes it looser, higher damping settles it sooner.
+
+<Credits>Inspired by [Paco Coursey](https://paco.me/)</Credits>
