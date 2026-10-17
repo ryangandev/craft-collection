@@ -9,6 +9,7 @@ import AnimatedLink from '@/components/animated-link';
 import CopyButton from '@/components/copy-button';
 import Credits from '@/components/credits';
 import DemoContainer from '@/components/demo-container';
+import HighlightedTextDemo from '@/components/highlighted-text-demo';
 import NavBarDemo from '@/components/navbar-demo';
 import CustomCode from '@/components/mdx/custom-code';
 import CustomImage from '@/components/mdx/custom-image';
@@ -34,6 +35,7 @@ const components = {
   CopyButton,
   Credits,
   DemoContainer,
+  HighlightedTextDemo,
   NavBarDemo,
 } as MDXRemoteProps['components'];
 

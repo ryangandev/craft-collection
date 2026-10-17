@@ -1,0 +1,64 @@
+---
+name: 'Highlighted Text'
+description: 'Highlights every match of a search query inside a string.'
+date: '2026-10-17'
+---
+
+Splits `text` on every case-insensitive match of `highlightedString` and colors the matches, for search results that show why each one matched.
+
+## Prerequisites
+
+Created in Next.js with TypeScript. Styled with TailwindCSS.
+
+<br />
+
+<b className="font-medium color-level-2">Note</b>: the query is escaped before it becomes a regular expression. Without that, typing a lone `(` throws during render and takes the page down, and `.` highlights every character.
+
+## Preview
+
+<DemoContainer>
+  <HighlightedTextDemo />
+</DemoContainer>
+
+## Code
+
+```tsx title="highlighted-text.tsx" showLineNumbers
+import React from 'react';
+
+type HighlightedTextProps = {
+  text: string;
+  highlightedString: string;
+};
+
+const escapeRegExp = (value: string) =>
+  value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+export default function HighlightedText({
+  text,
+  highlightedString,
+}: HighlightedTextProps) {
+  if (!highlightedString.trim()) {
+    return <span>{text}</span>;
+  }
+
+  const parts = text.split(
+    new RegExp(`(${escapeRegExp(highlightedString)})`, 'gi'),
+  );
+
+  return (
+    <span>
+      {parts.map((part, index) =>
+        part.toLowerCase() === highlightedString.toLowerCase() ? (
+          <span key={index} className="text-orange-700 dark:text-orange-400">
+            {part}
+          </span>
+        ) : (
+          part
+        ),
+      )}
+    </span>
+  );
+}
+```
+
+Splitting on a pattern wrapped in a capture group keeps the matches in the result, so every odd entry of `parts` is a match and the text keeps its original casing.
